@@ -1,0 +1,2196 @@
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+#:import Label kivy.uix.label.Label
+#:import Factory kivy.factory.Factory
+#:import utils kivy.utils
+##:import icon kivysome.icon
+Management:
+    transition: NoTransition()
+    Loading_Screen:
+    Login:
+    Admin:    
+    Create:
+    UsersPopUp:
+    GraphScreen:
+    MediaScreen:
+
+<Loading_Screen>:
+    name: "Loader"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            id: bell
+            Image:
+                source: "sparkling_infinity_loader.gif"
+                anim_delay: 0.05
+                size: bell.size
+                pos: bell.pos
+                allow_stretch: True
+                keep_ratio: True
+        #Label:
+        #    text: "Please wait until ContactApp starts"
+            #height: 0
+        #    size_hint_y: None
+        #    height: 40
+        #    size_hint_x: 0.3
+<Filer>:
+    id: filit
+    title: "Attach"
+    title_size: 20
+    separator_height: 0
+    size_hint: None, None
+    size: 500, 500
+    auto_dismiss: False
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserIconView:
+            id: filechoosey
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: filit.dismiss()#root.cancel()
+            Button:
+                text: "Load"
+                on_release: root.load(filechoosey.selection)    
+
+<WhatsAppSender>:
+    title:"WABot"
+    title_size: 40
+    title_color: utils.get_color_from_hex("#008000")
+    title_align: "center"
+    separator_height: 0
+    size_hint: None, None
+    size: 500, 500
+    background: "whitest.png"
+    auto_dismiss: False
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            id: wa
+            Image:
+                source: 'icons8-whatsapp.png'
+                allow_stretch: True
+                keep_ratio: True
+                size: wa.size
+                pos: wa.pos            
+        GridLayout:
+            cols: 2
+            TextInput:
+                hint_text: "Message"
+                id: message_text
+            Button:
+                id: whatsapp_pin
+                on_press: Factory.Filer().open()
+                size_hint: None, None
+                size: 50, 45
+                Image:
+                    source: 'icons8-attach-96.png'
+                    allow_stretch: True
+                    keep_ratio: True
+                    size: whatsapp_pin.size
+                    pos: whatsapp_pin.pos 
+        BoxLayout:
+            orientation: 'horizontal'
+            #rows:1
+            #cols: 3
+            Reqbutton:
+                background_normal: 'redicon.png'
+                background_down: 'darkredicon.png'
+                #anchor_y: 'bottom'
+                #anchor_x: 'left'
+                text: 'Cancel'
+                on_press: root.dismiss() 
+            Labeller:
+                width: 275
+            Reqbutton:
+                #anchor_y: 'bottom'
+                #anchor_x: 'right'
+                #size_hint: None, None
+                #size: 50, 50
+                background_normal: 'blueicon.png'  
+                background_down: 'darkblueicon.png' 
+                #background_normal: ''
+                #background_down:
+                text: 'Send'
+                on_press: root.send_message()
+                on_release: root.dismiss()
+            #Labeller:
+            #Labeller:
+
+
+<MediaScreen>:
+    name: "MediaScreen"
+    id: boxerer
+    grid: grid
+    actress: actress
+    BoxLayout:
+        orientation: 'vertical' 
+        ActionBar:
+            background_color: utils.get_color_from_hex('#4169E1')#'#00BFFF')        
+            #id: actress
+            pos_hint: {'top':1}
+            ActionView:
+                use_separator: True
+                id: actress
+                #with 
+                ActionPrevious:
+                    with_previous: False
+                    app_icon: "logo-white.png"
+                ActionOverflow:          
+                ClockLabel:
+                ActionButton:
+                    id: whatsapp
+                    on_press: root.send_via_whatsapp()
+                    #Button:
+                    #markup: True # Always turn markup on
+                    #text: "%s Comment" % icon('comment', 24)
+                    Image:
+                        source: 'icons8-whatsapp.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: whatsapp.size
+                        pos: whatsapp.pos                         
+                ActionTextInput:
+                    id: searcher
+                    hint_text: 'Search'
+                    #text: 
+                    on_text: boxerer.search(searcher.text)
+                    multiline: False
+                ActionButton:   
+                    id: mic
+                    on_state: root.speaker()
+                    Image:
+                        source: 'icons8-microphone.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: mic.size
+                        pos: mic.pos 
+                #ActionButton:
+                #    id: checker_button
+                #    on_press: root.check_all_checkbutton()
+                ActionButton:
+                    id: close
+                    #text: 'Close'
+                    on_press: app.root.current = 'AdminDetails'
+                    Image:
+                        source: 'icons8-close-window.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: close.size
+                        pos: close.pos                    
+        GridLayout:
+            cols: 6
+            size_hint: 1, None
+            size_hint_y: None
+            height: 40
+            CustomerLabel2:#CustomLabel: 
+                text: 'ID'
+                font_size: 20
+                #size_hint_x: None#0.001
+            CustomLabel2:#CustomLabel:
+                text: 'Name'
+                font_size: 20
+                #size_hint_x: None
+            CustomLabel2:#CustomLabel:
+                text: 'City'
+                font_size: 20
+                #size_hint_x: None
+            CustomLabel2:#CustomLabel:
+                text: 'Phone'
+                font_size: 20
+                #size_hint_x: None
+            CustLabel:
+                #size_hint_x: None
+            CustomerLabel2:               
+                #size_hint_x: None 
+            #Button:
+            #    id: lol
+            #    on_press: root.verify(self)    
+        ScrollView:
+            id: scroll
+            do_scroll_x: False
+            do_scroll_y: True
+            scroll_wheel_distance: 250
+            #smooth_scroll_end: 0.1
+            GridLayout:
+                id: grid  
+                #orientation: "vertical"  
+                cols: 6
+                size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+
+<TableRow>:
+    #firsttext: firsttext
+    #secondtext: secondtext
+    #thirdtext: thirdtext
+    #fourthtext: fourthtext
+    height: 1
+    size_hint_y: None
+    GridLayout:
+        cols: 6
+        #GridLayout:
+            #cols: 6
+        CustomerLabel:
+            text: root.firsttext
+        CustomLabel:
+            text: root.secondtext
+        CustomLabel:
+            text: root.thirdtext
+        CustomLabel:
+            text: root.fourthtext
+        CustomButton:
+            id: root.firsttext
+            text: "Edit"
+            on_release: Factory.EditPopup().popy()
+        CustomerButton:
+            id: root.firsttext
+            text: "Delete"  
+            on_release: Factory.DeletePopup().open()
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserIconView:
+            id: filechooser
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
+<SaveDialog>:
+    #text_input: text_input
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserIconView:
+            id: filechooser
+            on_selection: text_input.text = self.selection and self.selection[0] or ''
+
+        TextInput:
+            id: text_input
+            size_hint_y: None
+            height: 30
+            multiline: False
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Save"
+                on_release: root.save(filechooser.path, text_input.text)
+
+<File_DropDown>:
+    #on_open: print("I have been opened")
+    id: dropit
+    background_color: 0, 0, 0, 1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    GridLayout:
+        cols: 1
+        height: self.minimum_height
+        size_hint_y: None
+        BLUEBUTTON:#Button:
+            id: csvman
+            height: 48
+            size_hint_y: None
+            on_release: root.show_save()
+            Image:
+                source: 'icons8-import-csv-80.png'
+                #source: 'excel_logo.jpg'
+                allow_stretch: True
+                keep_ratio: True
+                size: csvman.size
+                pos: csvman.pos
+            #text: "To CSV"
+        #BLUEBUTTON:#Button:
+        #    id: xlsxman
+        #    height: 48
+        #    size_hint_y: None
+        #    on_release: root.show_save()
+        #    Image:
+        #        source: 'excel_logo_new.jpg'
+                #source: 'csv_icon.png'
+        #        allow_stretch: True
+        #        keep_ratio: True
+        #        size: xlsxman.size
+        #        pos: xlsxman.pos
+            #text: "To Xlsx"   
+
+<Dropman>:
+    id: dropit
+    background_color: 0, 0, 0, 1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    GridLayout:
+        cols: 1
+        height: self.minimum_height
+        size_hint_y: None
+        BLUEBUTTON:
+            #size_hint: None, None
+            #size: 50, 50
+            height: 48
+            size_hint_y: None
+            text: 'Profile'
+            on_press: root.powpow()
+        BLUEBUTTON:
+            height: 48
+            size_hint_y: None
+            text: 'Change \nPassword'
+            on_press: root.paspow()  
+        BLUEBUTTON:
+            #size_hint: None, None
+            #size: 50, 50
+            height: 48
+            size_hint_y: None
+            text: 'Sign Out'
+            on_press: app.root.current = 'Loggerhead'
+            on_release: root.doeverything()#dropit.dismiss()              
+            #ProfilePopup().popy()#Factory.ProfilePopup().open()
+
+<STARTCALENDARPOPUP>:
+    title: ""
+    separator_height: 0
+    #background: "whitest.png"
+    title_size: 0
+    size_hint: None, None
+    size: 400, 400
+    #on_open: print(self.parent)
+    #on_dismiss: app.graphite.start_cal_text()
+    CalendarWidget:
+
+<ENDCALENDARPOPUP>:
+    title: ""
+    separator_height: 0
+    title_size: 0
+    size_hint: None, None
+    size: 400, 400
+    CalendarWidget:
+    
+#<STARTCALENDARDROPDOWN>:
+#    id: startcaldrop
+#    background_color: 0, 0, 0, 1
+#    canvas.before:
+#        Color:
+#            rgba: root.background_color
+#        Rectangle:
+#            size: self.size
+#            pos: self.pos
+#    GridLayout:
+#        cols: 1
+#        height: self.minimum_height
+#        size_hint_y: None
+#        BLUEBUTTON:
+##            #size_hint: None, None
+            #size: 50, 50
+#            height: 48
+#            size_hint_y: None
+#            text: 'Sign Out'
+ #           on_press: app.root.current = 'Loggerhead'
+ #           on_release: root.doeverything()#dropit.dismiss()
+ #       BLUEBUTTON:
+ #           #size_hint: None, None
+ #           #size: 50, 50
+ #           height: 48
+ #           size_hint_y: None
+  #          text: 'Profile'
+  ##          on_press: root.powpow()
+   #     BLUEBUTTON:
+   #         height: 48
+   #         size_hint_y: None
+   #         text: 'Change \nPassword'
+  #         on_press: root.paspow()
+  #      #StartDatePicker:
+  #      #    size_hint_y: None
+        #    height: 100
+        #    width: 100
+            #size: 100, 100
+            #height: 60
+            #size_hint_y: None
+
+<GraphScreen>:
+    name: "Graphman"
+    #id: graphicalgraph
+    bowbow: bowbow
+    #startcaltextinput: startcaltextinput
+    #on_pre_enter: root.graphplotter()
+    BoxLayout:
+        #id: bowbow
+        orientation: "vertical"
+        ActionBar:
+            background_color: utils.get_color_from_hex('#4169E1')#'#00BFFF')        
+            #id: actress
+            pos_hint: {'top':1}
+            #dropdown_width: 200
+            ActionView:
+                use_separator: True
+                id: actress
+                ActionPrevious:
+                    app_icon: "logo-white.png"                
+                ActionOverflow:  
+                ActionLabel:
+                    text: "Start"
+                ActionDatePicker:    
+                ActionTextInput:
+                    id: sct
+                    text: "%s" %root.startex#root.startex
+                    hint_text: "DD/MM/YY"
+                    multiline: False
+                    #on_focus: print(root.startex)#print(sct.text + "---" + str(sct) + "---" + str(self))
+                    #on_focus: app.startcalendar.open()
+                    #focus: False
+                ActionButton:
+                    id: startcal
+                    #text: "start"
+                    #on_press: root.show_start_calendar()
+                    #on_press: root.openstartcalendar()
+                    on_release: app.startcalendar.open()
+                    Image:
+                        source: 'calendar_icon_blue.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: startcal.size
+                        pos: startcal.pos                        
+                    #on_release: root.openstartcalendar()
+                ActionButton:
+                    on_press: print(sct.text + str(sct))
+                    on_release: root.start_cal_text()
+                ActionLabel:
+                    text: "End"
+                #ActionDatePicker:
+                ActionTextInput:        
+                ActionButton:
+                    id: creategraph
+                    #text: 'Close'
+                    #on_press: app.root.current = 'AdminDetails'
+                    Image:
+                        source: 'create_graph_icon.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: creategraph.size
+                        pos: creategraph.pos  
+                ActionButton:
+                    id: close
+                    #text: 'Close'
+                    on_press: app.root.current = 'AdminDetails'
+                    Image:
+                        source: 'icons8-close-window.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: close.size
+                        pos: close.pos                      
+        BoxLayout:
+            orientation: "vertical"
+            id: bowbow                
+        #name: "Graphman"
+    #EditPopup:
+#<Hello_WORLD@Label>:
+    #Label:
+    #canvas.before:
+    #    Color:
+    #        rgb: utils.get_color_from_hex('#00BFFF')
+    #    Rectangle:
+    #        pos: self.pos
+    #        size: self.size
+    #        source: 'darkblueicon.png'    
+<Login>:
+    name: 'Loggerhead'
+    id: logman
+    #screenmiaow: screenmiaow
+    on_enter: Factory.LoginPopup().open()
+    on_leave: Factory.LoginPopup().dismiss()#root.popclose()
+    on_lol: if root.lol: app.root.current = 'Details'
+    on_rofl: if root.rofl: app.root.current = 'AdminDetails'
+    #BoxLayout:
+    #    id: screenmiaow
+    #Label:
+    Image:
+        source: "blue_background_hex.jpg"
+        allow_stretch: True
+        keep_ratio: False
+        size: logman.size
+        pos: logman.pos
+<Texter@TextInput>:
+    multiline: False
+    write_tab: False
+    size_hint: None, None
+    size: 200, 35 
+
+<Liar@Label>:
+    id: lie
+    size_hint: None, None
+    size: 100, 50
+
+<Reqbutton>:
+    id: required
+    size_hint: None, None
+    size: 100, 50
+
+<Buttoner@Button>:
+    id: butane
+    size_hint: None, None
+    size: 100, 50
+    background_normal: 'blueicon.png'  
+    background_down: 'darkblueicon.png'    
+    #Image:
+    #    source: 'hide_blue.png'
+    #    allow_stretch: True
+    #    keep_ratio: True
+    #    size: butane.size
+    #    pos: butane.pos 
+
+
+<Passer@TextInput>:
+    multiline: False
+    write_tab: False
+    size_hint: None, None
+    size: 200, 35
+    password: True
+
+<Padder@Label>:
+    size_hint: None, None
+    size: 60, 50
+
+<Labeller@Label>:
+    size_hint: None, None
+    size: 30, 30
+
+<Imager@Image>:
+    allow_stretch: True
+    keep_ratio: True
+
+<BLUEBUTTON@Button>:
+    background_color: utils.get_color_from_hex('#4169E1')#0, 0, 0, 1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos    
+
+#<GraphDropDown>:
+#    id: graphdrop
+#    background_color: 0, 0, 0, 1
+#    canvas.before:
+#        Color:
+#            rgba: root.background_color
+##        Rectangle:
+ #           size: self.size
+ #           pos: self.pos
+ #   GridLayout:
+ #       cols: 1
+ #       height: self.minimum_height
+ #       size_hint_y: None
+ #       BLUEBUTTON:
+ #           height: 48
+ #           size_hint_y: None
+ #           text: "Customers"
+ #           on_press: app.root.current = "Graphman"
+ #       BLUEBUTTON:
+
+<SubmitButton@Button>:
+    id: sub
+    canvas.after:
+        Color:
+            #rgb: 0, 105, 225
+            rgb: utils.get_color_from_hex('#008000')
+        Rectangle:
+            pos: sub.pos
+            size: sub.size 
+
+<LoginPopup>:
+    title: "Login"#'Login'
+    #separator_height: 0
+    title_align: 'center'
+    #title_color: utils.get_color_from_hex('#00BFFF')
+    title_size: 40
+    #userMan: Usertext
+    #passMan: Passtext
+    auto_dismiss: False
+    size_hint: None, None
+    size: 400, 400
+    #pos_hint: {'center_x':1, 'center_y':1}
+    #pos_hint: {'right':.7, 'top': .8}
+    background: 'blue_back.png'#utils.get_color_from_hex('#000000')
+    #on_screen: if root.on_screen: app.root.current = 'Create'    
+    BoxLayout:
+        spacing: 35
+        #rows: 2
+        #row_default_height: 
+        orientation: 'vertical'
+        GridLayout:
+            cols: 3
+            Label:
+                size_hint: None, None
+                size: 125, 150 
+            Image:
+                size_hint: None, None
+                source: 'icons8-male-user-96.png'
+                allow_stretch: True
+                keep_ratio: True
+                size: 100, 150
+                pos: self.pos
+            Label:
+                size_hint: None, None
+                size: 100, 150      
+        GridLayout:
+            cols: 4
+            Label:
+                size_hint: None, None
+                size: 37.5, 50
+            Label:
+                id: userlabel
+                size_hint: None, None
+                size: 50, 50
+                Image:
+                    source: 'icons8-name-96.png'
+                    allow_stretch: True
+                    keep_ratio: True
+                    size: userlabel.size
+                    pos: userlabel.pos            
+            TextInput:
+                id: Usertext
+                hint_text: 'Username'
+                #text: Loggerit.UserMan
+                multiline: False
+                write_tab: False
+                size_hint: None, None
+                size: 200, 45 
+                focus: True
+                suggestion_text: "hello"           
+            Label:          
+                size_hint: None, None
+                size: 0, 0
+            Label:
+                size_hint: None, None
+                size: 37.5, 50
+            Label:
+                size_hint: None, None
+                size: 50, 50  
+                id: passlabel
+                Image:
+                    source: 'icons8-lock-80.png'
+                    allow_stretch: True
+                    keep_ratio: True
+                    size: passlabel.size
+                    pos: passlabel.pos                     
+            TextInput:
+                id: Passtext
+                #text: Loggerit.PassMan
+                size_hint: None, None
+                size: 200, 45
+                font_size: 15
+                password: True
+                password_mask: '\u2022' 
+                allow_copy: False               
+                hint_text: 'Password'
+                multiline: False
+                write_tab: False 
+                on_text_validate: root.doall()#root.get_password_username()
+            Button:       
+                size_hint: None, None
+                size: 50, 45
+                id: tobu
+                on_press: Passtext.password = False
+                on_release: Passtext.password = True 
+                Image:
+                    source: 'icons8-eye-96.png'
+                    allow_stretch: True
+                    keep_ratio: True
+                    size: tobu.size
+                    pos: tobu.pos
+        GridLayout:
+            cols: 3
+            #height: self.minimum_height
+            #row_default_height: 50
+            Button:
+                background_normal: 'blueicon.png'  
+                background_down: 'darkblueicon.png'  
+                size_hint: None, None
+                size: 100, 50 
+                text: 'SignUp' 
+                on_press: root.signit()              
+            Label:   
+                size_hint: None, None
+                size: 175, 50 
+            Button:
+                background_normal: 'greenicon.png'  
+                background_down: 'darkgreenicon.png'             
+                size_hint: None, None
+                size: 100, 50
+                text: 'Submit'
+                on_press: root.get_password_username() 
+                on_release: root.clearmyself()                  
+
+<SigninPopup>:
+    title: 'SignUp'
+    title_align: 'center'
+    #title_color: utils.get_color_from_hex('#00BFFF')
+    title_size: 40
+    auto_dismiss: False
+    size_hint: None, None
+    size: 400, 600
+    #on_lol:
+    background: 'blue_back.png'
+    BoxLayout:
+        #rows: 2
+        #cols: 1
+        orientation: 'vertical'
+        GridLayout: 
+            cols: 3
+            Padder:
+            Labeller:
+                id: FNameLabel
+                Image:
+                    source: 'icons8-name-96.png'
+                    size: FNameLabel.size
+                    pos: FNameLabel.pos
+            Texter:
+                id: FNameText
+                hint_text: 'First Name'
+            Padder:
+            Labeller:
+                id: LNameLabel
+                Image:
+                    source: 'icons8-name-96.png'
+                    size: LNameLabel.size
+                    pos: LNameLabel.pos
+            Texter:
+                id: LNameText
+                hint_text: 'Last Name'
+            Padder:
+            Labeller:
+                id: EmailLabel
+                Image:
+                    source: 'icons8-email-80.png'
+                    size: EmailLabel.size
+                    pos: EmailLabel.pos
+            Texter:
+                id: EmailText
+                hint_text: 'Email'
+            Padder:
+            Labeller:
+                id: MobileLabel
+                Image:
+                    source: 'icons8-mobile-phone-96.png'
+                    size: MobileLabel.size
+                    pos: MobileLabel.pos
+            Texter:
+                id: MobileText
+                hint_text: 'Mobile'
+            Padder:
+            Labeller:
+                id: CityLabel
+                Image:
+                    source: 'icons8-location-96.png'
+                    size: CityLabel.size
+                    pos: CityLabel.pos
+            Texter:
+                id: CityText
+                hint_text: 'City'
+            Padder:
+            Labeller:
+                id: UserLabel
+                Image:
+                    source: 'icons8-male-user-96.png'
+                    size: UserLabel.size
+                    pos: UserLabel.pos
+            Texter:
+                id: UserText
+                hint_text: 'UserName'      
+            Padder:
+            Labeller:
+                id: PassLabel 
+                Image:
+                    source: 'icons8-lock-80.png'
+                    size: PassLabel.size
+                    pos: PassLabel.pos
+            Texter:
+                password: True
+                password_mask: '\u2022'                
+                id: PassText
+                hint_text: 'Password'
+            Padder:
+            Labeller:
+                id: ConPassLabel
+                Image:
+                    source: 'icons8-password-reset-80.png'
+                    size: ConPassLabel.size
+                    pos: ConPassLabel.pos
+            Texter:
+                password: True
+                password_mask: '\u2022'
+                id: ConPassText
+                hint_text: 'Confirm Password'  
+        #AnchorLayout:
+        #    anchor_x: 'center'
+        #    anchor_y: 'bottom'
+        BoxLayout:
+            #background: 'darkblueicon.png'
+            #cols: 3
+            orientation: 'horizontal'
+            #row_default_height: 50
+            Button:
+                background_normal: 'blueicon.png'  
+                background_down: 'darkblueicon.png'  
+                size_hint: None, None
+                size: 100, 50 
+                text: 'Back To Login' 
+                on_press: root.logit()
+                pos: self.pos              
+            Label:   
+                size_hint: None, None
+                size: 175, 50
+                pos: self.pos 
+            Button:
+                background_normal: 'greenicon.png'  
+                background_down: 'darkgreenicon.png'             
+                size_hint: None, None
+                size: 100, 50
+                text: 'Register'
+                on_press: root.register()
+                pos: self.pos  
+
+<PasswordPopup>:
+    title: 'Edit Password'
+    title_align: 'left'
+    title_color: utils.get_color_from_hex('#000000')
+    title_size: 40
+    separator_height: 0
+    auto_dismiss: False
+    size_hint: None, None
+    size: 400, 200
+    editgrid: editgrid
+    editgrid2: editgrid2
+    #on_lol:
+    background: 'whitest.png'
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            cols: 2
+            spacing: 10, 10
+            #col_default_width: 30
+            id: editgrid
+        BoxLayout:
+            orientation: 'horizontal'
+            #cols: 3
+            id: editgrid2 
+
+<ProfilePopup>:
+    title: 'Edit Profile'
+    title_align: 'left'
+    title_color: utils.get_color_from_hex('#000000')
+    title_size: 40
+    separator_height: 0
+    auto_dismiss: False
+    size_hint: None, None
+    size: 400, 400
+    editgrid: editgrid
+    editgrid2: editgrid2
+    #on_lol:
+    background: 'whitest.png'
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            cols: 2
+            spacing: 10, 10
+            #col_default_width: 30
+            id: editgrid
+        BoxLayout:
+            orientation: 'horizontal'
+            #cols: 3
+            id: editgrid2  
+    #BoxLayout:
+        #rows: 2
+        #cols: 1
+    #    orientation: 'vertical'
+ 
+#<ColorDrop>:#@ColorPicker+DropDown>:
+###    id: ColorDrop
+#    title: ""
+##    separator_height: 0
+#    title_size: 0
+#    size: 500, 500
+##    #background_color: doneit.color#0, 0, 0, 1
+    #background: 'whitest.png'
+#    ColorPicker:
+#        size_hint: None, None
+#        size: ColorDrop.size#400, 400
+#        #height: 400#self.minimum_height
+        #width: 400
+        #size_hint_y: None    
+#        id: doneit
+
+<UsersPopUp>:
+    on_pre_enter: root.GETUSERS()
+    name: 'USERS'
+    #title: 'Users'
+    #title_size: 20
+    #title_align: 'left'
+    #separator_height: 0
+    #background: 'whitest.png'
+    gridder: gridder
+    #grid: grid
+    #size_hint: None, None    
+    #size: 400, 400    
+    BoxLayout:
+        orientation: 'vertical'
+        ActionBar:
+            background_color: utils.get_color_from_hex('#4169E1')#'#00BFFF')        
+            #id: actress
+            pos_hint: {'top':1}
+            ActionView:        
+                use_separator: True
+                id: actress
+                ActionPrevious:
+                    app_icon: "logo-white.png"                
+                ActionOverflow: 
+                ActionButton:
+                    id: close
+                    #text: 'Close'
+                    on_press: app.root.current = 'AdminDetails'
+                    Image:
+                        source: 'icons8-close-window.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: close.size
+                        pos: close.pos
+                #ActionButton:
+                #    text: 'NONE'
+                #    on_press: print(len(gridder.children))
+                #ActionButton:
+                #    text: 'Get_widgets'
+                #    on_press: root.GETUSERS()                    
+        GridLayout:
+            cols: 7
+            size_hint: 1, None
+            size_hint_y: None
+            height: 40
+            CustomLabel2:#CustomLabel: 
+                text: 'First Name'
+                font_size: 20
+                #size_hint_x: None#0.001
+            CustomLabel2:#CustomLabel:
+                text: 'Last Name'
+                font_size: 20
+                #size_hint_x: None
+            CustomLabel2:#CustomLabel:
+                text: 'Email'
+                font_size: 20
+                #size_hint_x: None
+            CustomLabel2:#CustomLabel:
+                text: 'Mobile'
+                font_size: 20
+                #size_hint_x: None
+            #CustomLabel2:
+            #    text: 'Active'
+            #    font_size: 20
+                #size_hint_x: None
+            CustLabel:
+            CustLabel:
+            #CustomLabel2:
+            ##    text: ''
+            #    font_size: 20
+            #CustomLabel2:
+            #    text: ''
+            #    font_size: 20        
+            #CustLabel:               
+                #size_hint_x: None 
+            #Button:
+            #    id: lol
+            #    on_press: root.verify(self)    
+        ScrollView:
+            id: scroller
+            do_scroll_x: False
+            do_scroll_y: True
+            scroll_wheel_distance: 250
+            #smooth_scroll_end: 0.1
+            GridLayout:
+                id: gridder    
+                cols: 6
+                size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height 
+
+<Admin>:
+    name: 'AdminDetails'
+    id: boxerer
+    grid: grid
+    actress: actress
+    on_enter: app.close_all_pops()
+    #boxmar: boxmar
+    BoxLayout:
+        orientation: 'vertical' 
+        ActionBar:
+            background_color: utils.get_color_from_hex('#4169E1')#'#00BFFF')        
+            #id: actress
+            pos_hint: {'top':1}
+            ActionView:
+                use_separator: True
+                id: actress
+                ActionPrevious:
+                    app_icon: "logo-white.png"
+                ActionOverflow:          
+                ClockLabel:
+                ActionButton:
+                    id: csvman
+                    on_release: root.show_save()
+                    Image:
+                        source: 'icons8-import-csv-80.png'
+                        #source: 'excel_logo.jpg'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: csvman.size
+                        pos: csvman.pos
+                ActionGroup:
+                    ActionButton:
+                        id: smuggler
+                        #text: "Export"
+                        on_release: app.filedrop.open(self)
+                        Image:
+                            source: 'icons8-database-export-80.png'
+                            allow_stretch: True
+                            keep_ratio: True
+                            size: smuggler.size
+                            pos: smuggler.pos 
+                    ActionButton:
+                        id: mediabutton
+                        on_release: app.root.current = "MediaScreen"
+                        Image:
+                            source: 'icons8-send-email-80.png'
+                            allow_stretch: True
+                            keep_ratio: True
+                            size: mediabutton.size
+                            pos: mediabutton.pos                     
+                    ActionButton:
+                        id: some
+                        text: "Graph"
+                        #on_press: root.plotgraph()
+                        on_release: app.root.current = "Graphman"
+                        Image:
+                            source: 'icons8-graph-128.png'
+                            allow_stretch: True
+                            keep_ratio: True
+                            size: some.size
+                            pos: some.pos 
+                ActionButton:
+                    id: users
+                    #text: 'Users'
+                    #on_press: root.getusers()#app.popit.GETUSERS()
+                    on_release: app.root.current = "USERS"
+                    Image:
+                        source: 'icons8-select-users-80.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: users.size
+                        pos: users.pos
+                ActionButton:
+                    id: refer
+                    on_release: root.search("all")
+                    #text: "Refresh"
+                    on_press: app.dm.MEGACONNECTOR()
+                    Image:
+                        source: 'icons8-refresh-240.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: refer.size
+                        pos: refer.pos 
+                ActionTextInput:
+                    id: searcher
+                    hint_text: 'Search'
+                    #text: 
+                    on_text: boxerer.search(searcher.text)
+                    multiline: False
+                ActionButton:   
+                    id: mic
+                    on_state: root.speaker()
+                    Image:
+                        source: 'icons8-microphone.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: mic.size
+                        pos: mic.pos 
+                ActionButton:
+                    id: light
+                    #text: 'Option'
+                    on_release: app.actor.open(self)    
+                    Image:
+                        source: 'icons8-more-96.png'
+                        #source: 'userblack2.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: light.size
+                        pos: light.pos                      
+                ActionButton:
+                    id: add_user_add
+                    #text: 'Add'
+                    on_release: Factory.CustomPopup().open()                                        
+                    Image:
+                        source: 'icons8-add-user-male-80.png'
+                        #source: 'userblack2.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: add_user_add.size
+                        pos: add_user_add.pos                
+                ActionButton:
+                    id: butcher
+                    #text: 'Log Out'
+                    on_release: app.darkdrop.open(self)#app.root.current = 'Loggerhead'#app.darkdrop.open(self)                    
+                    #background_normal: 'logger.png'
+                    Image:
+                        source: 'icons8-male-user-96.png'
+                        #source: 'userblack2.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: butcher.size
+                        pos: butcher.pos
+                #ActionButton:
+                #    text: "NONE"
+                #    on_press: print(len(grid.children))        
+                #ActionButton:
+                #    id: done
+                #    on_release: app.colordropper.open(self)       
+        GridLayout:
+            cols: 6
+            size_hint: 1, None
+            size_hint_y: None
+            height: 40
+            CustomerLabel2:#CustomLabel: 
+                text: 'ID'
+                font_size: 20
+                #size_hint_x: None#0.001
+            CustomLabel2:#CustomLabel:
+                text: 'Name'
+                font_size: 20
+                #size_hint_x: None
+            CustomLabel2:#CustomLabel:
+                text: 'City'
+                font_size: 20
+                #size_hint_x: None
+            CustomLabel2:#CustomLabel:
+                text: 'Phone'
+                font_size: 20
+                #size_hint_x: None
+            CustLabel:
+                #size_hint_x: None
+            CustLabel:               
+                #size_hint_x: None 
+            #Button:
+            #    id: lol
+            #    on_press: root.verify(self)    
+        ScrollView:
+            id: scroll
+            do_scroll_x: False
+            do_scroll_y: True
+            scroll_wheel_distance: 250
+            #smooth_scroll_end: 0.1
+            GridLayout:
+                id: grid  
+                #orientation: "vertical"  
+                cols: 6
+                size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+        #BoxLayout:
+        #    orientation: "vertical"
+        #    id: boxmar        
+        ActionBar:
+            background_color: utils.get_color_from_hex('#4169E1')#'#00BFFF')        
+            #id: actress
+            pos_hint: {'bottom':1}
+            ActionView:
+                use_separator: True
+                id: actresses
+                ActionPrevious:
+                    app_icon: "logo-white.png"                
+                ActionOverflow:  
+                ActionButton:
+                    text: "\u00A9 Copyright 2020 [b]ContactApp[/b]. All Rights Reserved\nKarthik Information Technology"
+                    #text: "© Copyright 2020 Contact\nKarthik Information Technology"
+                    on_press: root.openurl()
+                    markup: True
+
+<Create>:
+    name: 'Details'
+    id: boxer
+    grid: grid
+    actress: actress
+    on_enter: app.close_all_pops()    
+    BoxLayout:
+        orientation: 'vertical' 
+        ActionBar:
+            background_color: utils.get_color_from_hex('#4169E1')#'#00BFFF')        
+            #id: actress
+            pos_hint: {'top':1}
+            ActionView:
+                use_separator: True
+                id: actress
+                ActionPrevious:
+                    app_icon: "Karthik_InfoTech.png"                
+                ActionOverflow:          
+                ActionButton:
+                    id: refer
+                    on_release: root.search("all")
+                    #text: "Refresh"
+                    on_press: root.MEGACONNECTOR("")
+                    Image:
+                        source: 'icons8-refresh-240.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: refer.size
+                        pos: refer.pos 
+                ActionTextInput:
+                    id: searcher
+                    hint_text: 'Search'
+                    #text: 
+                    on_text: boxer.search(searcher.text)
+                    multiline: False
+                ActionButton:   
+                    id: mic
+                    on_state: root.speaker()
+                    Image:
+                        source: 'icons8-microphone.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: mic.size
+                        pos: mic.pos 
+                ActionButton:
+                    id: light
+                    #text: 'Option'
+                    on_release: app.actor.open(self)    
+                    Image:
+                        source: 'icons8-more-96.png'
+                        #source: 'userblack2.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: light.size
+                        pos: light.pos                      
+                ActionButton:
+                    id: add_user_add
+                    #text: 'Add'
+                    on_release: Factory.CustomPopup().open()                                        
+                    Image:
+                        source: 'icons8-add-user-male-80.png'
+                        #source: 'userblack2.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: add_user_add.size
+                        pos: add_user_add.pos                
+                ActionButton:
+                    id: butcher
+                    #text: 'Log Out'
+                    on_release: app.darkdrop.open(self)#app.root.current = 'Loggerhead'#app.darkdrop.open(self)                    
+                    #background_normal: 'logger.png'
+                    Image:
+                        source: 'icons8-male-user-96.png'
+                        #source: 'userblack2.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: butcher.size
+                        pos: butcher.pos
+                #ActionButton:
+                #    id: done
+                #    on_release: app.colordropper.open(self)       
+        GridLayout:
+            cols: 6
+            size_hint: 1, None
+            size_hint_y: None
+            height: 40
+            CustomerLabel2:#CustomLabel: 
+                text: 'ID'
+                font_size: 20
+                #size_hint_x: None#0.001
+            CustomLabel2:#CustomLabel:
+                text: 'Name'
+                font_size: 20
+                #size_hint_x: None
+            CustomLabel2:#CustomLabel:
+                text: 'City'
+                font_size: 20
+                #size_hint_x: None
+            CustomLabel2:#CustomLabel:
+                text: 'Phone'
+                font_size: 20
+                #size_hint_x: None
+            CustLabel:
+                #size_hint_x: None
+            #CustLabel:               
+                #size_hint_x: None 
+            #Button:
+            #    id: lol
+            #    on_press: root.verify(self)    
+        ScrollView:
+            id: scroll
+            do_scroll_x: False
+            do_scroll_y: True
+            scroll_wheel_distance: 250
+            #smooth_scroll_end: 0.1
+            GridLayout:
+                id: grid    
+                cols: 5
+                size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+        ActionBar:
+            background_color: utils.get_color_from_hex('#4169E1')#'#00BFFF')        
+            #id: actress
+            pos_hint: {'bottom':1}
+            ActionView:
+                use_separator: True
+                id: actresses
+                ActionPrevious:
+                    app_icon:"Karthik_InfoTech.png"                
+                ActionOverflow:  
+                ActionButton:
+                    text: "\u00A9 Copyright 2020 [b]ContactApp[/b]. All Rights Reserved\nKarthik Information Technology"
+                    #text: "© Copyright 2020 Contact\nKarthik Information Technology"
+                    on_press: root.openurl()
+                    markup: True
+
+<BLUEToggleButton@ToggleButton>:
+    background_color: utils.get_color_from_hex('#4169E1')#0, 0, 0, 1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos 
+<Dropper>:
+    #id: dropit
+    #background_color: utils.get_color_from_hex('#4169E1')#0, 0, 0, 1
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#00008B')#root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos         
+    GridLayout:
+        cols: 1
+        height: self.minimum_height
+        size_hint_y: None
+        BLUEToggleButton:
+            id: ID
+            text: 'ID'
+            height: 48
+            size_hint_y: None
+            group: 'option'
+            on_state: root.changefield()             
+        BLUEToggleButton:
+            id: Name
+            text: 'Name'
+            height: 48
+            size_hint_y: None
+            state: 'down'
+            group: 'option'
+            on_state: root.changefield()            
+        BLUEToggleButton:
+            id: City
+            text: 'City'
+            height: 48
+            size_hint_y: None
+            group: 'option'
+            on_state: root.changefield()            
+        BLUEToggleButton:
+            id: Phone
+            text: 'Phone'
+            height: 48
+            size_hint_y: None
+            group: 'option' 
+            on_state: root.changefield()                                                           
+              
+
+<Okay>:
+    title: 'Submission \n Successful'
+    title_size: 0
+    title_align: 'center'
+    separator_height: 0
+    auto_dismiss: False
+    size_hint: None, None
+    size: 400, 400
+    background: 'whitest.png'
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'tick_mark_gif.gif'
+            anim_delay: 0.07
+            anim_loop: 1
+            mipmap: True
+            size: self.size
+            pos: self.pos
+            allow_stretch: True
+            keep_ratio: True
+        Label:
+            markup: True
+            font_size: 40
+            text: '[color=000000][b]Submission \n Successful![/b][/color]'    
+        #Label:
+        #    text: 'Submission \n Successful'
+        #    font_size: 30
+        #GridLayout:
+            #cols: 3
+            #Liar:
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'bottom'
+            Buttoner:
+                text: 'Okay'
+                on_release: root.dismiss()
+        #    Liar:
+<DeleteUser>:
+    title: 'Delete'
+    title_align: 'center'
+    #title_color: utils.get_color_from_hex('')
+    title_size: 0
+    separator_height: 0
+    auto_dismiss: False
+    size_hint: None, None
+    size: 400, 400
+    background: 'whitest.png'
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'alert.png'
+            #anim_delay: 0.07
+            #anim_loop: 1
+            #mipmap: True
+            size: self.size
+            pos: self.pos
+            allow_stretch: True
+            keep_ratio: True
+        Label:
+            markup: True
+            text: '[color=000000][b]Are you sure you want to delete the user???[/b][/color]' #\n Yes/No'
+        GridLayout:
+            #orientation: 'horizontal'
+            #rows:1
+            cols: 3
+            Reqbutton:
+                #anchor_y: 'bottom'
+                #anchor_x: 'right'
+                #size_hint: None, None
+                #size: 50, 50
+                background_normal: 'blueicon.png'  
+                background_down: 'darkblueicon.png' 
+                #background_normal: ''
+                #background_down:
+                text: 'Yes'
+                on_press: root.delete()
+                on_release: root.dismiss()
+            Labeller:
+                width: 170
+            #Labeller:
+            #Labeller:
+            Reqbutton:
+                background_normal: 'redicon.png'
+                background_down: 'darkredicon.png'
+                #anchor_y: 'bottom'
+                #anchor_x: 'left'
+                text: 'No'
+                on_press: root.dismiss()  
+
+<DeletePopup>:
+    title: 'Delete'
+    title_align: 'center'
+    #title_color: utils.get_color_from_hex('')
+    title_size: 0
+    separator_height: 0
+    auto_dismiss: False
+    size_hint: None, None
+    size: 400, 400
+    background: 'whitest.png'
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'alert.png'
+            #anim_delay: 0.07
+            #anim_loop: 1
+            #mipmap: True
+            size: self.size
+            pos: self.pos
+            allow_stretch: True
+            keep_ratio: True
+        Label:
+            markup: True
+            text: '[color=000000][b]Are you sure you want to delete the record???[/b][/color]' #\n Yes/No'
+        GridLayout:
+            #orientation: 'horizontal'
+            #rows:1
+            cols: 3
+            Reqbutton:
+                #anchor_y: 'bottom'
+                #anchor_x: 'right'
+                #size_hint: None, None
+                #size: 50, 50
+                background_normal: 'blueicon.png'  
+                background_down: 'darkblueicon.png' 
+                #background_normal: ''
+                #background_down:
+                text: 'Yes'
+                on_press: root.delete()
+                on_release: root.dismiss()
+            Labeller:
+                width: 170
+            #Labeller:
+            #Labeller:
+            Reqbutton:
+                background_normal: 'redicon.png'
+                background_down: 'darkredicon.png'
+                #anchor_y: 'bottom'
+                #anchor_x: 'left'
+                text: 'No'
+                on_press: root.dismiss()        
+
+<Reqbutton1>:
+    background_normal: 'blueicon.png'
+    background_down: 'darkblueicon.png'
+
+<Reqbutton2>:
+    background_normal: 'redicon.png'
+    background_down: 'darkredicon.png'
+
+<CustomLabel>:
+    font_size: 20
+    color: 0, 0, 0, 1
+    #border: 10,10,10,10
+    size_hint_y: None 
+    size_hint_x: 1
+    height: 30
+    #thickness: 0.01
+    #margin: 2
+    canvas.before:      
+        Color:
+            rgb: 1, 1, 1 
+        Rectangle:
+            #pos: self.x + self.margin, self.y + self.margin + 1
+            #size: self.width - 2 * self.margin , self.thickness        
+            pos: self.pos
+            size: self.size 
+            source: 'rectangle.png'
+<CustomLabel2@Label>
+    font_size: 20
+    size_hint_x: 1
+    size_hint_y: None
+    height: 40
+
+<CheckButton>:
+    size_hint_y: None
+    height: 40
+    size_hint_x: 0.3
+    active: True
+    on_active: root.activating_button()
+    on_press: root.activate_behaviour(self.active) 
+
+<CustomerLabel2@Label>:
+    font_size: 20
+    size_hint_y: None
+    height: 40
+    size_hint_x: 0.3
+    #canvas.before:
+    #    Rectangle:
+<CustomerLabel>:
+    font_size: 20
+    color: 0, 0, 0, 1
+    size_hint_y: None
+    height: 30
+    size_hint_x: 0.3
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'rectangle.png'  
+
+<CustLabel>:
+    font_size: 20
+    height: 40
+    size_hint_x: 0.5
+    size_hint_y: None
+
+<CustomButton>
+    font_size: 20
+    height: 30
+    on_press: root.reload
+    size_hint_y: None
+    size_hint_x: 0.5
+    canvas.before:
+        Color:
+            #rgb: 0, 105, 225
+            rgb: utils.get_color_from_hex('#00008B')            
+        Rectangle:
+            pos: self.pos
+            size: self.size        
+    #background_normal: 'editup.png'
+    #canvas.before:
+     #   Color:
+      #      rgba: 176, 196, 222, 1
+       # Rectangle:
+        #    pos: self.pos
+         #   size: self.size    
+
+<CustomerButton>
+    font_size: 20
+    height: 30
+    on_press: root.reload()
+    size_hint_y: None
+    size_hint_x: 0.5
+    canvas.before:
+        Color:
+            rgb: 255, 0, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size    
+    #background_normal: 'delete.png'
+<EditLabel>:
+    markup: True
+    size_hint: None, None
+    size: 70, 32
+
+<EditTextInput>:
+    #markup: True
+    size_hint: None, None
+    size: 370, 32    
+
+<ProfileEditTextInput>:
+    size_hint: None, None
+    size: 300, 32
+
+<CustomPopup>:
+    id: textup
+    title: 'Add Customer' 
+    title_align: 'left'
+    title_color: utils.get_color_from_hex('#000000')
+    title_size: 20
+    separator_height: 0   
+    auto_dismiss: False
+    size_hint: None, None
+    size: 500, 600
+    background: 'whiter.png'
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            spacing: 10, 10        
+            cols: 2
+            col_default_width: 30
+            EditLabel: #1
+                text: '[color=000000]Name[/color] [color=0000ff][b]\u2022[/b][/color]'
+                #font_size: 20
+            EditTextInput:
+                id: Name
+                multiline: False
+                write_tab: False
+                #size_hint: (.7,.1)
+                hint_text: 'Name'
+                #font_size: 20
+            EditLabel:  #2
+                text: '[color=000000]Address[/color] [color=0000ff][b]\u2022[/b][/color]'
+                #font_size: 20
+            EditTextInput:
+                id: Address
+                multiline: True
+                write_tab: False
+                hint_text: 'Address'
+                #font_size: 20
+            EditLabel:  #3
+                text: '[color=000000]Area[/color] [color=0000ff][b]\u2022[/b][/color]'
+                #font_size: 20
+            EditTextInput:
+                id: Area
+                multiline: False
+                write_tab: False
+                hint_text: 'Area'
+                #font_size: 20
+            EditLabel:  #4
+                text: '[color=000000]City[/color] [color=0000ff][b]\u2022[/b][/color]'
+                #font_size: 20
+            EditTextInput:
+                id: City
+                multiline: False
+                write_tab: False
+                hint_text: 'City'
+                #font_size: 20
+            EditLabel:
+                text: '[color=000000]State[/color] [color=0000ff][b]\u2022[/b][/color]'
+                #font_size: 20
+            EditTextInput:
+                id: State
+                multiline: False
+                write_tab: False
+                hint_text: 'State'
+                #font_size: 20
+            EditLabel:
+                text: '[color=000000]Country[/color] [color=0000ff][b]\u2022[/b][/color]'
+                #font_size: 20
+            EditTextInput:
+                id: Country
+                multiline: False
+                write_tab: False
+                hint_text: 'Country'
+                #font_size: 20
+            EditLabel:
+                text: '[color=000000]Pincode[/color] [color=0000ff][b]\u2022[/b][/color]'
+                #font_size: 20
+            EditTextInput:
+                id: Pincode
+                multiline: False
+                write_tab: False
+                hint_text: 'Pincode'
+                #font_size: 20
+            EditLabel:
+                text: '[color=000000]Phone[/color] [color=0000ff][b]\u2022[/b][/color]'
+                #font_size: 20
+            EditTextInput:
+                id: Phone
+                multiline: False
+                write_tab: False
+                hint_text: 'Phone'
+                #font_size: 20
+            EditLabel:
+                text: '[color=000000]Email[/color] [color=0000ff][b]\u2022[/b][/color]'
+                #font_size: 20
+            EditTextInput:
+                id: Email
+                multiline: False
+                write_tab: False
+                hint_text: 'Email'
+                #font_size: 20
+            EditLabel:
+                text: '[color=000000]Remark[/color] [color=0000ff][b]\u2022[/b][/color]'
+                #font_size: 20
+            EditTextInput:
+                id: Remark
+                multiline: True
+                write_tab: False
+                hint_text: 'Remark'
+                #font_size: 20
+            EditLabel:
+            EditLabel:
+        BoxLayout:
+            orientation: 'horizontal'
+            Reqbutton2:
+                #height: 50
+                text: 'Close'
+                #font_size: 30
+                on_press: root.dismiss() 
+            EditLabel:
+            EditLabel:
+            EditLabel:
+            EditLabel:
+            Reqbutton1:
+                text: 'Submit'
+                #font_size: 30
+                on_press: textup.insert()     
+                #on_release: root.closure()                   
+        #Label:
+        #GridLayout:
+        #    cols: 2
+        #    Button:
+        #        height: 50
+        #        text: 'Submit'
+            #    font_size: 30
+        #        on_press: textup.insert()     
+                #on_release: root.closure()#Factory.Okay().open()
+        #    Button:
+        #        height: 50
+        #        text: 'Close'
+            #    font_size: 30
+        #        on_press: root.dismiss()
+<Verify>:
+    title: 'Submission \n Successful'
+    title_size: 0
+    title_align: 'center'
+    separator_height: 0
+    auto_dismiss: False
+    size_hint: None, None
+    size: 300, 300
+    background: 'whitest.png'
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'alert.png'
+            #anim_delay: 0.07
+            #anim_loop: 1
+            mipmap: True
+            size: self.size
+            pos: self.pos
+            allow_stretch: True
+            keep_ratio: True
+        Label:
+            markup: True
+            font_size: 20
+            text: '[color=000000][b]Incorrect Username/Password \n              Combination[/b][/color]'    
+        #Label:
+        #    text: 'Submission \n Successful'
+        #    font_size: 30
+        #GridLayout:
+            #cols: 3
+            #Liar:
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'bottom'
+            Reqbutton2:
+                text: 'Okay'
+                on_release: root.dismiss()
+
+<Inactivate>:
+    title: 'Submission \n Successful'
+    title_size: 0
+    title_align: 'center'
+    separator_height: 0
+    auto_dismiss: False
+    size_hint: None, None
+    size: 300, 300
+    background: 'whitest.png'
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'alert.png'
+            #anim_delay: 0.07
+            #anim_loop: 1
+            mipmap: True
+            size: self.size
+            pos: self.pos
+            allow_stretch: True
+            keep_ratio: True
+        Label:
+            markup: True
+            font_size: 20
+            text: '[color=000000][b]User is not activated[/b][/color]'    
+        #Label:
+        #    text: 'Submission \n Successful'
+        #    font_size: 30
+        #GridLayout:
+            #cols: 3
+            #Liar:
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'bottom'
+            Reqbutton2:
+                text: 'Okay'
+                on_release: root.dismiss()
+                #on_press: Factory.LoginPopup().open()
+
+<User>:
+    title: 'Submission \n Successful'
+    title_size: 0
+    title_align: 'center'
+    separator_height: 0
+    auto_dismiss: False
+    size_hint: None, None
+    size: 300, 300
+    background: 'whitest.png'
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'alert.png'
+            #anim_delay: 0.07
+            #anim_loop: 1
+            mipmap: True
+            size: self.size
+            pos: self.pos
+            allow_stretch: True
+            keep_ratio: True
+        Label:
+            markup: True
+            font_size: 20
+            text: '[color=000000][b]User Does not Exist[/b][/color]'    
+        #Label:
+        #    text: 'Submission \n Successful'
+        #    font_size: 30
+        #GridLayout:
+            #cols: 3
+            #Liar:
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'bottom'
+            Reqbutton2:
+                text: 'Okay'
+                on_release: root.dismiss()
+                #on_press: Factory.LoginPopup().open()
+
+<Validifier>:
+    title: 'Submission \n Successful'
+    title_size: 0
+    title_align: 'center'
+    separator_height: 0
+    auto_dismiss: False
+    size_hint: None, None
+    size: 300, 300
+    background: 'whitest.png'
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'alert.png'
+            #anim_delay: 0.07
+            #anim_loop: 1
+            mipmap: True
+            size: self.size
+            pos: self.pos
+            allow_stretch: True
+            keep_ratio: True
+        Label:
+            markup: True
+            font_size: 20
+            text: '[color=000000][b]Username/Password Required[/b][/color]'    
+        #Label:
+        #    text: 'Submission \n Successful'
+        #    font_size: 30
+        #GridLayout:
+            #cols: 3
+            #Liar:
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'bottom'
+            Reqbutton2:
+                text: 'Okay'
+                #on_press: Factory.LoginPopup().open()
+                on_release: root.dismiss()
+
+<ConPassPopup>:
+    title: 'Submission \n Successful'
+    title_size: 0
+    title_align: 'center'
+    separator_height: 0
+    auto_dismiss: False
+    size_hint: None, None
+    size: 300, 300
+    background: 'whitest.png'
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'alert.png'
+            #anim_delay: 0.07
+            #anim_loop: 1
+            mipmap: True
+            size: self.size
+            pos: self.pos
+            allow_stretch: True
+            keep_ratio: True
+        Label:
+            markup: True
+            font_size: 20
+            text: '[color=000000][b]Confirm Password \nNot Matched[/b][/color]'    
+        #Label:
+        #    text: 'Submission \n Successful'
+        #    font_size: 30
+        #GridLayout:
+            #cols: 3
+            #Liar:
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'bottom'
+            Reqbutton2:
+                text: 'Okay'
+                #on_press: Factory.LoginPopup().open()
+                on_release: root.dismiss()
+
+<RequiredFields>:
+    title: 'Submission \n Successful'
+    title_size: 0
+    title_align: 'center'
+    separator_height: 0
+    auto_dismiss: False
+    size_hint: None, None
+    size: 300, 300
+    background: 'whitest.png'
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'alert.png'
+            #anim_delay: 0.07
+            #anim_loop: 1
+            mipmap: True
+            size: self.size
+            pos: self.pos
+            allow_stretch: True
+            keep_ratio: True
+        Label:
+            markup: True
+            font_size: 20
+            text: '[color=000000][b]Fill All The Required Fields[/b][/color]'    
+        #Label:
+        #    text: 'Submission \n Successful'
+        #    font_size: 30
+        #GridLayout:
+            #cols: 3
+            #Liar:
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'bottom'
+            Reqbutton2:
+                text: 'Okay'
+                on_release: root.dismiss()
+                on_press: Factory.SigninPopup().open()
+
+
+<Nameerror>:
+    title: 'Submission \n Successful'
+    title_size: 0
+    title_align: 'center'
+    separator_height: 0
+    auto_dismiss: False
+    size_hint: None, None
+    size: 400, 400
+    background: 'whitest.png'
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'alert.png'
+            #anim_delay: 0.07
+            #anim_loop: 1
+            mipmap: True
+            size: self.size
+            pos: self.pos
+            allow_stretch: True
+            keep_ratio: True
+        Label:
+            markup: True
+            font_size: 30
+            text: '[color=000000][b]              OOPS! \nPhone Already Exists[/b][/color]'    
+        #Label:
+        #    text: 'Submission \n Successful'
+        #    font_size: 30
+        #GridLayout:
+            #cols: 3
+            #Liar:
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'bottom'
+            Reqbutton2:
+                text: 'Okay'
+                on_release: root.dismiss()
+
+#<Nameerror>
+#    title: 'Error'
+#    title_size: 0
+#    separator_height: 0
+#    auto_dismiss: False
+#    size_hint: None, None
+#    size: 400, 400
+#    BoxLayout:
+#        orientation: 'vertical'
+#        Label:
+#            text: 'OOPS!!!\nPhone already exists'
+#            font_size: 20
+#        Button:
+#            text: 'Okay'
+#            on_press: root.dismiss()
+
+<ViewPopup>:
+    #id: textdown
+    title: 'View Customer' 
+    title_size: 20
+    separator_height: 0
+    title_align: 'left'
+    markup: True
+    title_color: utils.get_color_from_hex('#000000')   
+    auto_dismiss: False
+    editgrid: editgrid
+    editgrid2: editgrid2
+    #auto_dismiss: False
+    size_hint: None, None
+    size: 500, 600
+    background: 'whitest.png'
+    #Name: Name1
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            cols: 2
+            spacing: 10, 10
+            #col_default_width: 30
+            id: editgrid
+        BoxLayout:
+            orientation: 'horizontal'
+            #cols: 3
+            id: editgrid2  
+
+<EditPopup>:
+    #id: textdown
+    title: 'Edit Customer' 
+    title_size: 30
+    separator_height: 0
+    title_align: 'left'
+    markup: True
+    title_color: utils.get_color_from_hex('#ffffff')   
+    auto_dismiss: False
+    editgrid: editgrid
+    editgrid2: editgrid2
+    #auto_dismiss: False
+    size_hint: None, None
+    size: 500, 600
+    background: 'EditPopup.png'
+    #Name: Name1
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            cols: 2
+            spacing: 10, 10
+            #col_default_width: 30
+            id: editgrid
+        BoxLayout:
+            orientation: 'horizontal'
+            #cols: 3
+            id: editgrid2    
+
+<EditUser>:
+    #id: textdown
+    title: 'Edit User' 
+    title_size: 20
+    separator_height: 0
+    title_align: 'left'
+    markup: True
+    title_color: utils.get_color_from_hex('#000000')   
+    auto_dismiss: False
+    editgrid: editgrid
+    editgrid2: editgrid2
+    #auto_dismiss: False
+    size_hint: None, None
+    size: 500, 400
+    background: 'whitest.png'
+    #Name: Name1
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            cols: 2
+            spacing: 10, 10
+            #col_default_width: 30
+            id: editgrid
+        BoxLayout:
+            orientation: 'horizontal'
+            #cols: 3
+            id: editgrid2             
+#<EditPopup
+    #GridLayout:
+     #   cols: 2
+        #id: editgrid
+       # Button:
+        #    text: 'hello'
+        #s#ize_hint: 1, None
+        #size_hint_y: None
+        #height: self.minimum_height
+        #Button:
+        #    text: 'Show'
+        #    on_press: root.popy()                                                                                                                                                                 
